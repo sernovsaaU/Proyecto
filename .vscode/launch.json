@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SreclamoApplication<sreclamo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.sr.sreclamo.SreclamoApplication",
+            "projectName": "sreclamo",
+            "args": ""
+        }
+    ]
+}

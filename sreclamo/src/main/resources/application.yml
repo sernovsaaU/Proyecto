@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    username: proyecto
+    password: proyecto
+    url: jdbc:mysql://localhost:3306/sr_db
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
