@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Clasificaciones</title>
+    <title>Buscar Reclamos</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
@@ -12,14 +12,14 @@
    <table class="table">
        <thead>
            <tr>
-               <th>Id</th>
-               <th>Nombre</th>
+               <th>Número de reclamo</th>
+               <th>código interno</th>
            </tr>
        </thead>
        <tbody>
-           <tr th:each="LCR:${ListCla_R}">
-               <td th:text=${LCR.Id_Clasificacion_Reclamo}>${LCR.Id_Clasificacion_Reclamo}</td>
-               <td th:text=${LCR.Nombre_Clasificacion_Reclamo}>${LCR.Nombre_Clasificacion_Reclamo}</td> 
+           <tr th:each="ALLR:${AllReclamo}">
+               <td th:text=${ALLR.Numero_Reclamo}>${ALLR.Numero_Reclamo}</td>
+               <td th:text=${ALLR.Codigo_Interno_Reclamo}>${ALLR.Codigo_Interno_Reclamo}</td> 
             </tr>
        </tbody>
     </table>
