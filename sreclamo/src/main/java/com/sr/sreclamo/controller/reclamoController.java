@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -42,4 +45,12 @@ public class reclamoController {
       model.addAttribute("AllReclamo", AllReclamo);
     return "buscarreclamo";
   }
+
+  @RequestMapping(value ="/mulReclamos", method = RequestMethod.GET)
+  public String multReclamos(@RequestParam (name="entregaX")String entregaX, Model model) {
+    List<reclamo> busquedaMultiReclamo= RS.multiBusquedaReclamos(entregaX);
+    model.addAttribute("busquedaMultiReclamo", busquedaMultiReclamo);
+    return "multReclamos";
+  }
+  
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Clasificaciones</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <form action="#" th:action="@{entregaX}" method="get" class="input-group">
+        <input class="form-control form-control-dark" type="text" placeholder="EntregaX" name="entregaX" aria-label="EntregaX">
+        <div class="input-group-append">
+            <button class="btn btn-outline-light" value="EntregaX">entregaX</button>
+        </div>
+    </form>
+   <table class="table">
+       <thead>
+           <tr>
+               <th>Id</th>
+               <th>Nombre</th>
+           </tr>
+       </thead>
+       <tbody>
+           <tr th:each="LCR:${busquedaMultiReclamo}">
+            <td th:text=${LCR.Numero_Reclamo}>${LCR.Numero_Reclamo}</td>
+            <td th:text=${LCR.Codigo_Interno_Reclamo}>${LCR.Codigo_Interno_Reclamo}</td> 
+            </tr>
+            
+       </tbody>
+    </table>
+</body>
+</html>
