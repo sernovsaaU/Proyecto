@@ -47,8 +47,8 @@ public class reclamoController {
   }
 
   @RequestMapping(value ="/mulReclamos", method = RequestMethod.GET)
-  public String multReclamos(@RequestParam (name="entregaX")String entregaX, Model model) {
-    List<reclamo> busquedaMultiReclamo= RS.multiBusquedaReclamos(entregaX);
+  public String multReclamos(@RequestParam (name="entregaX")String entregaX,@RequestParam (name="entregaX2")String entregaX2, Model model) {
+    List<reclamo> busquedaMultiReclamo= RS.multiBusquedaReclamos(entregaX,entregaX2);
     model.addAttribute("busquedaMultiReclamo", busquedaMultiReclamo);
     return "multReclamos";
   }

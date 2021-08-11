@@ -27,7 +27,7 @@ public class reclamoService {
 
     public void modificar(){}
 
-    public List<reclamo> multiBusquedaReclamos(String entregaX){
-        return repo.busquedaCompleja(entregaX);
+    public List<reclamo> multiBusquedaReclamos(String entregaX,String entregaX2){
+        return repo.busquedaCompleja(entregaX,entregaX2);
     }
 }
