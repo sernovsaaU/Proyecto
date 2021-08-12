@@ -3,7 +3,7 @@ package com.sr.sreclamo.service;
 import java.util.List;
 
 
-import com.sr.sreclamo.model.fruta;
+import com.sr.sreclamo.model.tipo_fruta;
 import com.sr.sreclamo.repo.frutaRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,16 @@ public class frutaService {
     @Autowired
     private frutaRepo fRepo;
 
-    public List<fruta> listaFrutas(){
+    public List<tipo_fruta> listaAllFrutas(){
         return fRepo.findAll();
     }
 
-    public fruta buscaFrutas(Integer Id){
+    public tipo_fruta buscaFrutas(Integer Id){
         return fRepo.getById(Id);
-    } 
+    }
+
+    public tipo_fruta buscarNombreConId(Integer buscaConEsteId){
+        return fRepo.buscarNombrePorId(buscaConEsteId);
+    }
+
 }

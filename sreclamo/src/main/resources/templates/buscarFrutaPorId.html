@@ -14,20 +14,20 @@
     <main role="main" class="flex-shrink-0">
         <div class="container mt-5">
             <div class="jumbotron">
-                <h1 class="display-4">Listar frutas</h1>
+                <h1 class="display-4">Una frutas</h1>
             </div>
         </div>
     </main>
    <table class="table table-hover table-sm table-bordered">
        <thead>
            <tr>
-               <th>Frutas</th>
+               <th>Fruta</th>
                <th>Id frutas</th>
               
            </tr>
        </thead>
        <tbody>
-           <tr th:each="f:${AllFrutas}">
+           <tr th:each="f:${FrutaSolicitada}">
                <td th:text=${f.Nombre_Tipo_Fruta}>${f.Id_Tipo_Fruta}</td>
                <td th:text=${f.Id_Tipo_Fruta}>${f.Id_Tipo_Fruta}</td> 
             </tr>
