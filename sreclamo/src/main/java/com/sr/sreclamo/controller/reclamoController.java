@@ -2,6 +2,7 @@ package com.sr.sreclamo.controller;
 
 import java.util.List;
 
+import com.sr.sreclamo.entity.reclamoEnti;
 import com.sr.sreclamo.model.reclamo;
 import com.sr.sreclamo.service.reclamoService;
 
@@ -31,19 +32,20 @@ public class reclamoController {
         return "crear_reclamos";
     }
 
-
-/*
-    @GetMapping("/listaReclamo")
-    public re getMethodName(@RequestParam String param) {
-        return new SomeData();
-    }
-  */
   
   @GetMapping("/listarReclamos")
   public String listarReclamos(Model model){
       List<reclamo>AllReclamo = RS.listAllReclamos();
       model.addAttribute("AllReclamo", AllReclamo);
     return "buscarreclamo";
+  }
+
+  @GetMapping("/listarReclamos2")
+  public String listarReclamos2(Model model){
+      List<reclamo> listaR = RS.listAllReclamos();
+      List<reclamoEnti> entiReclamos= RS.modelToEntity(listaR);
+      model.addAttribute("entiReclamos", entiReclamos);
+    return "buscarreclamo2";
   }
 
   @RequestMapping(value ="/mulReclamos", method = RequestMethod.GET)
