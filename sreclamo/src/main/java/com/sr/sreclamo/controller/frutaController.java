@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,5 +36,15 @@ public class frutaController {
         model.addAttribute("FrutaSolicitada", FrutaSolicitada);
         return "/buscarFrutaPorId";//vista html
     }
+/*
+    @GetMapping("/buscarreclamo")
+    public String buscarSoloNombresFrutas(Model model) {
+        List<tipo_fruta>AllFrutas = FS.listaAllFrutas();
+        model.addAttribute("AllFrutas", AllFrutas);
+        return "AllFrutas";//vista html
+    }
+   
+*/
+
 
 }

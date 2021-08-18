@@ -1,6 +1,6 @@
 package com.sr.sreclamo.repo;
 
-import java.util.List;
+//import java.util.List;
 
 import com.sr.sreclamo.model.tipo_fruta;
 
