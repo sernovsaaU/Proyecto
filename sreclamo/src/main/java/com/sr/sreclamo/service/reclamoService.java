@@ -35,8 +35,9 @@ public class reclamoService {
         return repoR.findAll();
     }
 
-    public reclamo guardaReclamo(reclamo R){
-        return repoR.save(R);
+    //cambio reclamo por void y se quita return
+    public void guardaReclamo(reclamo R){
+        repoR.save(R);
     }
 
     public reclamo buscarReclamoPOrID(reclamo R){

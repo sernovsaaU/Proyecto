@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -61,5 +62,20 @@ public class reclamoController {
       List<reclamoEnti> entiReclamos= RS.modelToEntity(listaR);
       model.addAttribute("entiReclamos", entiReclamos);
     return "listr";
+  }
+
+  @GetMapping("/nuevoReclamo")
+  public String nuevoReclamo(Model model){
+    reclamo nvoReclamo= new reclamo();
+    model.addAttribute("nvoReclamo", nvoReclamo);
+    return "agregarNvoReclamo";
+
+  }
+
+  @PostMapping("/guardarReclamo2")  
+  public String guardarReclamo(@ModelAttribute("reclamo") reclamo r){
+    RS.guardaReclamo(r);
+    return "redirect:/listartodor";
+
   }
 }
