@@ -1,33 +1,44 @@
 package com.sr.sreclamo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="Estado")
 public class estado {
+   
+    @Column(name = "Id_Estado")
+    private Integer IdEstado;
+    private String Estado;
     
-    private int idEstado;
-    private String estado;
     public estado() {
     }
-    public estado(int idEstado, String estado) {
-        this.idEstado = idEstado;
-        this.estado = estado;
+
+    public estado(Integer idEstado, String estado) {
+        IdEstado = idEstado;
+        Estado = estado;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getIdEstado() {
-        return idEstado;
+    public Integer getIdEstado() {
+        return IdEstado;
     }
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
+
+    public void setIdEstado(Integer idEstado) {
+        IdEstado = idEstado;
     }
+
     public String getEstado() {
-        return estado;
+        return Estado;
     }
+
     public void setEstado(String estado) {
-        this.estado = estado;
+        Estado = estado;
     }
+
+    
 }

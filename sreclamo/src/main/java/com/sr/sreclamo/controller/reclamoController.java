@@ -55,4 +55,11 @@ public class reclamoController {
     return "multReclamos";
   }
   
+  @GetMapping("/listartodor")
+  public String listarTodo(Model model){
+      List<reclamo> listaR = RS.listAllReclamos();
+      List<reclamoEnti> entiReclamos= RS.modelToEntity(listaR);
+      model.addAttribute("entiReclamos", entiReclamos);
+    return "listr";
+  }
 }
