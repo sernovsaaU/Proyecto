@@ -37,6 +37,10 @@ public class reclamoService {
 
     //cambio reclamo por void y se quita return
     public void guardaReclamo(reclamo R){
+        System.out.println("codigo interno:" + R.getCodigo_Interno_Reclamo());
+        System.out.println("Detalle:" + R.getDetalle_Reclamo());
+        System.out.println("codigo interno:" + R.getFecha_Recepcion_Reclamo());        
+        R.getClienteIdCliente();
         repoR.save(R);
     }
 
@@ -61,7 +65,7 @@ public class reclamoService {
             tipo_fruta f=FS.buscarNombreConId(buscaConEsteId);
             System.out.println("Fruta obetenida:" + f.getNombre_Tipo_Fruta());
 
-            buscaConEsteId=lista.get(i).getCliente_Id_Cliente();
+            buscaConEsteId=lista.get(i).getClienteIdCliente();
             cliente c=CS.buscarNombreConId(buscaConEsteId);
             System.out.println("Cliente obetenido: " + c.getNombreCliente());
 

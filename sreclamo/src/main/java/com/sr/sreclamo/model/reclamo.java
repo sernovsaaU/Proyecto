@@ -2,28 +2,67 @@ package com.sr.sreclamo.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@Table(name="Reclamo")
 public class reclamo {
+    /*Numero_Reclamo` INT NOT NULL AUTO_INCREMENT,
+  `Codigo_Interno_Reclamo` INT NOT NULL,
+  `Detalle_Reclamo` VARCHAR(255) NOT NULL,
+  `Fecha_Recepcion_Reclamo` DATE NOT NULL,
+  `Temporada_Recepcion_Reclamo_1` INT NOT NULL,
+  `Temporada_Recepcion_Reclamo_2` INT NOT NULL,
+  `Fecha_Respuesta_Reclamo` DATE NOT NULL,
+  `Temporada_Proceso_Reclamo_1` INT NOT NULL,
+  `Temporada_Proceso_Reclamo_2` INT NOT NULL,
+  `Estado_Id_estado` INT NOT NULL,
+  `Investigacion_Id_Investigacion` INT NULL,
+  `Tipo_Producto_Id_Producto` INT NOT NULL,
+  `Marca_Id_Marca` INT NOT NULL,
+  `Tipo_Fruta_Id_Tipo_Fruta` INT NOT NULL,
+  `Cliente_Id_Cliente` INT NOT NULL,
+  `Sub_Tipo_CR_Id_Sub_Tipo_CR` INT NOT NULL,*/
+  @Column(name = "Numero_Reclamo")
     private Integer Numero_Reclamo;
+    @Column(name = "Codigo_Interno_Reclamo")
     private Integer Codigo_Interno_Reclamo;
+    @Column(name = "Detalle_Reclamo")
     private String Detalle_Reclamo;
+    @Column(name = "Fecha_Recepcion_Reclamo")
+    @DateTimeFormat(pattern = "yyyy-MM-d")
     private Date Fecha_Recepcion_Reclamo;
+    @Column(name = "Temporada_Recepcion_Reclamo_1")
     private Integer Temporada_Recepcion_Reclamo_1;
+    @Column(name = "Temporada_Recepcion_Reclamo_2")
     private Integer Temporada_Recepcion_Reclamo_2;
+    @Column(name = "Fecha_Respuesta_Reclamo")
+    @DateTimeFormat(pattern = "yyyy-MM-d")
     private Date Fecha_Respuesta_Reclamo;
+    @Column(name = "Temporada_Proceso_Reclamo_1")
     private Integer Temporada_Proceso_Reclamo_1;
+    @Column(name = "Temporada_Proceso_Reclamo_2")
     private Integer Temporada_Proceso_Reclamo_2;
+    @Column(name = "Estado_Id_estado")
     private Integer Estado_Id_estado;
+    @Column(name = "Investigacion_Id_Investigacion")
     private Integer Investigacion_Id_Investigacion;
+    @Column(name = "Tipo_Producto_Id_Producto")
     private Integer Tipo_Producto_Id_Producto;
+    @Column(name = "Marca_Id_Marca")
     private Integer Marca_Id_Marca;
+    @Column(name = "Tipo_Fruta_Id_Tipo_Fruta")
     private Integer Tipo_Fruta_Id_Tipo_Fruta;
-    private Integer Cliente_Id_Cliente;
+    @Column(name = "Cliente_Id_Cliente",nullable = false)
+    private Integer ClienteIdCliente;
+    @Column(name = "Sub_Tipo_CR_Id_Sub_Tipo_CR")
     private Integer Sub_Tipo_CR_Id_Sub_Tipo_CR;
     
     public reclamo() {
@@ -33,7 +72,7 @@ public class reclamo {
             Date fecha_Recepcion_Reclamo, Integer temporada_Recepcion_Reclamo_1, Integer temporada_Recepcion_Reclamo_2,
             Date fecha_Respuesta_Reclamo, Integer temporada_Proceso_Reclamo_1, Integer temporada_Proceso_Reclamo_2,
             Integer estado_Id_estado, Integer investigacion_Id_Investigacion, Integer tipo_Producto_Id_Producto,
-            Integer marca_Id_Marca, Integer tipo_Fruta_Id_Tipo_Fruta, Integer cliente_Id_Cliente,
+            Integer marca_Id_Marca, Integer tipo_Fruta_Id_Tipo_Fruta, Integer clienteIdCliente,
             Integer sub_Tipo_CR_Id_Sub_Tipo_CR) {
         Numero_Reclamo = numero_Reclamo;
         Codigo_Interno_Reclamo = codigo_Interno_Reclamo;
@@ -49,7 +88,7 @@ public class reclamo {
         Tipo_Producto_Id_Producto = tipo_Producto_Id_Producto;
         Marca_Id_Marca = marca_Id_Marca;
         Tipo_Fruta_Id_Tipo_Fruta = tipo_Fruta_Id_Tipo_Fruta;
-        Cliente_Id_Cliente = cliente_Id_Cliente;
+        ClienteIdCliente = clienteIdCliente;
         Sub_Tipo_CR_Id_Sub_Tipo_CR = sub_Tipo_CR_Id_Sub_Tipo_CR;
     }
 
@@ -167,12 +206,12 @@ public class reclamo {
         Tipo_Fruta_Id_Tipo_Fruta = tipo_Fruta_Id_Tipo_Fruta;
     }
 
-    public Integer getCliente_Id_Cliente() {
-        return Cliente_Id_Cliente;
+    public Integer getClienteIdCliente() {
+        return ClienteIdCliente;
     }
 
-    public void setCliente_Id_Cliente(Integer cliente_Id_Cliente) {
-        Cliente_Id_Cliente = cliente_Id_Cliente;
+    public void setClienteIdCliente(Integer clienteIdCliente) {
+        ClienteIdCliente = clienteIdCliente;
     }
 
     public Integer getSub_Tipo_CR_Id_Sub_Tipo_CR() {

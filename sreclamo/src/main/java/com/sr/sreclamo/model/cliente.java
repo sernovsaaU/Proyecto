@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="cliente")
 public class cliente {
-    @Column(name = "Id_Cliente")
+    @Column(name = "IdCliente")
     private Integer IdCliente;
     @Column(name = "Nombre_Cliente")
     private String NombreCliente;
