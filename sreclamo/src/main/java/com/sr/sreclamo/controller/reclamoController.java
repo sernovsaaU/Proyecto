@@ -1,9 +1,20 @@
 package com.sr.sreclamo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sr.sreclamo.entity.reclamoEnti;
+import com.sr.sreclamo.model.cliente;
+import com.sr.sreclamo.model.estado;
+import com.sr.sreclamo.model.marca;
+import com.sr.sreclamo.model.producto;
 import com.sr.sreclamo.model.reclamo;
+import com.sr.sreclamo.model.tipo_fruta;
+import com.sr.sreclamo.service.clienteService;
+import com.sr.sreclamo.service.estadoService;
+import com.sr.sreclamo.service.frutaService;
+import com.sr.sreclamo.service.marcaService;
+import com.sr.sreclamo.service.productoService;
 import com.sr.sreclamo.service.reclamoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +38,16 @@ public class reclamoController {
     
     @Autowired
     private reclamoService RS;
+    @Autowired
+    private frutaService FS;
+    @Autowired
+    private clienteService CS;
+    @Autowired
+    private estadoService ES;
+    @Autowired
+    private productoService PS;
+    @Autowired
+    private marcaService MS;
 
     @PostMapping("/guardaReclamo")
     public String guardaReclamo(@RequestBody reclamo R, @RequestParam String fecha1, @RequestParam String fecha2){
@@ -80,6 +101,103 @@ public class reclamoController {
     return "redirect:/listartodor";
 
   }
+
+ 
+  @GetMapping("/selec")
+  public String displaySelect(Model model){
+    reclamoEnti nvoReclamo= new reclamoEnti();
+    System.out.println("Este es el mapeado");
+    List<cliente> clientes=CS.listaAllClientes();
+    model.addAttribute("clientes", clientes);
+  
+
+
+    estado s=new estado();
+    marca m=new marca();
+    producto p= new producto();
+    reclamo ms= new reclamo();
+    tipo_fruta f=new tipo_fruta();
+    nvoReclamo.setEst(s);
+    nvoReclamo.setFru(f);
+    nvoReclamo.setMar(m);
+    nvoReclamo.setPro(p);
+    nvoReclamo.setRrec(ms);
+    
+    
+    model.addAttribute("nvoReclamo", nvoReclamo);
+    return "sele";
+
+  }
+
+  @PostMapping("/selecResp")  
+  public String selectRespuesta(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo){
+    System.out.println("QUe sucede, control");
+
+    System.out.println("Seleccion y entrego nombre:" + nvoReclamo.getCli().getNombreCliente() + " y id: " + nvoReclamo.getCli().getIdCliente());
+
+
+    
+  
+    return "redirect:/selec";
+  }
+
+  @GetMapping("/selec2")
+  public String testestityR(Model model){
+
+    reclamoEnti nvoReclamo= new reclamoEnti();
+   
+    List<cliente> clientes=CS.listaAllClientes();
+    model.addAttribute("clientes", clientes);
+    
+    List<estado> estados=ES.listaAllEstados();
+    model.addAttribute("estados", estados);
+
+    List<marca> marcas=MS.listaAllMarca();
+    model.addAttribute("marcas", marcas);
+
+    List<producto> productos=PS.listaAllProductos();
+    model.addAttribute("productos", productos);
+
+    List<reclamo> reclamos=RS.listAllReclamos();
+    model.addAttribute("reclamos", reclamos);
+
+    List<tipo_fruta> tipo_frutas=FS.listaAllFrutas();
+    model.addAttribute("tipo_frutas", tipo_frutas);
+    
+    estado s=new estado();
+    marca m=new marca();
+    producto p= new producto();
+    reclamo ms= new reclamo();
+    tipo_fruta f=new tipo_fruta();
+    nvoReclamo.setEst(s);
+    nvoReclamo.setFru(f);
+    nvoReclamo.setMar(m);
+    nvoReclamo.setPro(p);
+    nvoReclamo.setRrec(ms);
+    
+    
+    model.addAttribute("nvoReclamo", nvoReclamo);
+    return "sele2";
+
+  }
+
+  
+
+  
+  @PostMapping("/selecResp2")  
+  public String selectRespuesta2(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo){
+    System.out.println("QUe sucede, control");
+
+    System.out.println("Seleccion y entrego nombre:" + nvoReclamo.getCli().getNombreCliente() + " y id: " + nvoReclamo.getCli().getIdCliente());
+
+
+    
+   
+    return "redirect:/selec";
+
+  }
+
+
 }
 /*
     @PostMapping("/guardaReclamo")

@@ -28,6 +28,10 @@ public class securityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
             .antMatchers("/guardaReclamo/**").permitAll();    
             http.csrf().disable();
+            http.authorizeRequests()
+            .antMatchers("/selecResp/**").permitAll();
+            http.authorizeRequests()
+            .antMatchers("/selec/**").permitAll();        
             //.antMatchers("/").permitAll()
             //.and().formLogin();
             //.antMatchers("/trabajador").hasRole("Trabajador")

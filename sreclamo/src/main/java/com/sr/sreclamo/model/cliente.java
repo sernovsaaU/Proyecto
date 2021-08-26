@@ -39,6 +39,6 @@ public class cliente {
     public void setNombreCliente(String nombreCliente) {
         NombreCliente = nombreCliente;
     }
-  
+
     
 }
