@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Agregar nuevo reclamo</title>
+    <title>Buscar reclamo</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
@@ -22,15 +22,15 @@
     <main role="main" class="flex-shrink-0">
         <div class="container mt-5">
             <div class="jumbotron">
-                <h1 class="display-4">Agregar nuevo reclamo</h1>
+                <h1 class="display-4">Buscar reclamo</h1>
 
                 
                 
-                <form action="#" th:action="@{/selecResp2}" th:object="${nvoReclamo.Rrec}", method="POST">
-                    <ng-container>                    
+                <form action="#" th:action="@{/rbp}" th:object="${nvoReclamo.Rrec}", method="POST">
+                    <h5>Ingrese el número de reclamo:</h5>
+                    <input type="number" th:field="*{Numero_Reclamo}" placeholder="Codigo interno de reclamo" class="form-control mb-4 col-4">
                     <h5>Ingrese el código interno de reclamo:</h5>
                     <input type="number" th:field="*{Codigo_Interno_Reclamo}" placeholder="Codigo interno de reclamo" class="form-control mb-4 col-4">
-                    </ng-container>
                     <h5>Ingrese el detalle de reclamo:</h5>
                     <input type="text" th:field ="*{Detalle_Reclamo}" placeholder="Detalle reclamo" class="form-control mb-4 col-4">
                     <h5>Seleccione la fecha de recepción de reclamo:</h5>
@@ -42,8 +42,8 @@
                     <input type="date" th:field ="*{Fecha_Respuesta_Reclamo}" placeholder="fecha respuesta de reclamo" class="form-control mb-4 col-4">
                     <h5>Ingrese la temporada de proceso de reclamo:</h5>
                     <input type="number" min="1900" max="2099" th:field ="*{Temporada_Proceso_Reclamo_1}" placeholder="Temp proceso reclamo1" class="form-control mb-4 col-4">
-                    <input type="number" min="1900" max="2099" th:field ="*{Temporada_Proceso_Reclamo_2}" placeholder="Temp proceso reclamo1" class="form-control mb-4 col-4">
-                    <h5>Ingrese la investigacion, pendiente:</h5>
+                    <input type="number" min="1900" max="2099" th:field ="*{Temporada_Proceso_Reclamo_2}" placeholder="Temp proceso reclamo2" class="form-control mb-4 col-4">
+                    <h5>Ingrese la investigación, pendiente:</h5>
                     <input type="number" th:field ="*{Investigacion_Id_Investigacion}" placeholder="Id investigacion" class="form-control mb-4 col-4">
                     <h5>Seleccione de la lista el estado del reclamo:</h5>
                     <div class="col-lg-3"   >
@@ -83,7 +83,7 @@
                     </div>
                     <h5>Seleccione de la lista el tipo de reclamo, pendiente:</h5>
                     <input type="number" th:field ="*{Sub_Tipo_CR_Id_Sub_Tipo_CR}" placeholder="Id sub casi reclamo" class="form-control mb-4 col-4">
-                    <button type="submit" th:href = "@{/guardaReclamo}" class="btn btn-info col-2">Guardar reclamo</button>
+                    <button type="submit" th:href = "@{/guardaReclamo}" class="btn btn-info col-2">Buscar reclamo</button>
                 </form>
            </div>
         </div>
@@ -102,9 +102,6 @@
         todayHighlight: true
     });
 </script>
-<script>
-    let fecha1;
-    let fecha2;
-</script>
+
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Listar reclamos</title>
+    <title>Buscar Reclamos</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!--<link rel='stylesheet' type='text/css' media='screen' href='main.css'>-->
     <link rel="stylesheet"
@@ -43,14 +43,13 @@
                     <th>Tipo de fruta</th>
                     <th>Cliente</th>
                     <th>Sub-tipo de clasificación</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="ER:${entiReclamos}">
+                <tr th:each="ER:${busquedaMultiReclamo}">
                     <td th:text=${ER.Rrec.Numero_Reclamo}>${ER.Rrec.Numero_Reclamo}</td>
                     <td th:text=${ER.Rrec.Codigo_Interno_Reclamo}>${ER.Rrec.Codigo_Interno_Reclamo}</td> 
-                    <td th:text=${ER.Rrec.Detalle_Reclamo}>${ER.Rrec.Detalle_Reclamo}</td>
+                    
                     <td th:text=${ER.Rrec.Fecha_Recepcion_Reclamo}>${ER.Rrec.Fecha_Recepcion_Reclamo}</td> 
                     <td th:text=${ER.Rrec.Temporada_Recepcion_Reclamo_1}>${ER.Rrec.Temporada_Recepcion_Reclamo_1}</td>
                     <td th:text=${ER.Rrec.Temporada_Recepcion_Reclamo_2}>${ER.Rrec.Temporada_Recepcion_Reclamo_2}</td> 
@@ -63,9 +62,7 @@
                     <td th:text=${ER.Mar.NombreMarca}>${ER.Mar.NombreMarca}</td>
                     <td th:text=${ER.Fru.Nombre_Tipo_Fruta}>${ER.Fru.Nombre_Tipo_Fruta}</td> 
                     <td th:text=${ER.Cli.NombreCliente}>${ER.Cli.NombreCliente}</td>
-                    <td th:text=${ER.Rrec.Sub_Tipo_CR_Id_Sub_Tipo_CR}>${ER.Rrec.Sub_Tipo_CR_Id_Sub_Tipo_CR}</td> 
-                    <td> <a class="btn btn-primary btn-sm mb-3" th:href="@{/edit/}+${ER.Rrec.Numero_Reclamo}" >Editar</a></td> 
-                     
+                    <td th:text=${ER.Rrec.Sub_Tipo_CR_Id_Sub_Tipo_CR}>${ER.Rrec.Sub_Tipo_CR_Id_Sub_Tipo_CR}</td>
                 </tr>
             </tbody>
         </table>

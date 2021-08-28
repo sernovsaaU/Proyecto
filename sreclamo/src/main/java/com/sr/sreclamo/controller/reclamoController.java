@@ -1,7 +1,8 @@
 package com.sr.sreclamo.controller;
 
+
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 import com.sr.sreclamo.entity.reclamoEnti;
 import com.sr.sreclamo.model.cliente;
@@ -18,6 +19,7 @@ import com.sr.sreclamo.service.productoService;
 import com.sr.sreclamo.service.reclamoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.Assert;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -49,6 +52,7 @@ public class reclamoController {
     @Autowired
     private marcaService MS;
 
+   
     @PostMapping("/guardaReclamo")
     public String guardaReclamo(@RequestBody reclamo R, @RequestParam String fecha1, @RequestParam String fecha2){
       Assert.notNull(R, "The entry cannot be null");
@@ -56,29 +60,25 @@ public class reclamoController {
       return "crear_reclamos";
     }
 
+ 
   
-  @GetMapping("/listarReclamos")
-  public String listarReclamos(Model model){
-      List<reclamo>AllReclamo = RS.listAllReclamos();
-      model.addAttribute("AllReclamo", AllReclamo);
-    return "buscarreclamo";
-  }
-
-  @GetMapping("/listarReclamos2")
-  public String listarReclamos2(Model model){
-      List<reclamo> listaR = RS.listAllReclamos();
-      List<reclamoEnti> entiReclamos= RS.modelToEntity(listaR);
-      model.addAttribute("entiReclamos", entiReclamos);
-    return "buscarreclamo2";
-  }
 
   @RequestMapping(value ="/mulReclamos", method = RequestMethod.GET)
+  public String multReclamos(@RequestParam (name="entregaX")Integer entregaX,@RequestParam (name="entregaX2")Integer entregaX2, Model model) {
+    List<reclamo> busquedaMultiReclamo= RS.multiBusquedaReclamos(entregaX,entregaX2);
+    model.addAttribute("busquedaMultiReclamo", busquedaMultiReclamo);
+    return "multReclamos";
+  }
+
+  /*
+   @RequestMapping(value ="/mulReclamos", method = RequestMethod.GET)
   public String multReclamos(@RequestParam (name="entregaX")String entregaX,@RequestParam (name="entregaX2")String entregaX2, Model model) {
     List<reclamo> busquedaMultiReclamo= RS.multiBusquedaReclamos(entregaX,entregaX2);
     model.addAttribute("busquedaMultiReclamo", busquedaMultiReclamo);
     return "multReclamos";
   }
-  
+  */
+  //mostrar relcamos oficial
   @GetMapping("/listartodor")
   public String listarTodo(Model model){
       List<reclamo> listaR = RS.listAllReclamos();
@@ -86,15 +86,8 @@ public class reclamoController {
       model.addAttribute("entiReclamos", entiReclamos);
     return "listr";
   }
-
-  @GetMapping("/nuevoReclamo")
-  public String nuevoReclamo(Model model){
-    reclamo nvoReclamo= new reclamo();
-    model.addAttribute("nvoReclamo", nvoReclamo);
-    return "agregarNvoReclamo";
-
-  }
-
+ 
+  //guardar reclamo? pnediente
   @PostMapping("/guardarReclamo2")  
   public String guardarReclamo(@ModelAttribute("reclamo") reclamo r){
     RS.guardaReclamo(r);
@@ -102,7 +95,7 @@ public class reclamoController {
 
   }
 
- 
+ //vista de pruebas de drop down con cliente, borrar
   @GetMapping("/selec")
   public String displaySelect(Model model){
     reclamoEnti nvoReclamo= new reclamoEnti();
@@ -110,8 +103,6 @@ public class reclamoController {
     List<cliente> clientes=CS.listaAllClientes();
     model.addAttribute("clientes", clientes);
   
-
-
     estado s=new estado();
     marca m=new marca();
     producto p= new producto();
@@ -122,27 +113,15 @@ public class reclamoController {
     nvoReclamo.setMar(m);
     nvoReclamo.setPro(p);
     nvoReclamo.setRrec(ms);
-    
-    
+      
     model.addAttribute("nvoReclamo", nvoReclamo);
     return "sele";
 
   }
-
-  @PostMapping("/selecResp")  
-  public String selectRespuesta(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo){
-    System.out.println("QUe sucede, control");
-
-    System.out.println("Seleccion y entrego nombre:" + nvoReclamo.getCli().getNombreCliente() + " y id: " + nvoReclamo.getCli().getIdCliente());
-
-
-    
   
-    return "redirect:/selec";
-  }
-
+  //funcionalidad guardar, debe mantenerse
   @GetMapping("/selec2")
-  public String testestityR(Model model){
+  public String formularioParaIngreso(Model model){
 
     reclamoEnti nvoReclamo= new reclamoEnti();
    
@@ -171,7 +150,7 @@ public class reclamoController {
     tipo_fruta f=new tipo_fruta();
     nvoReclamo.setEst(s);
     nvoReclamo.setFru(f);
-    nvoReclamo.setMar(m);
+    nvoReclamo.setMar(m); 
     nvoReclamo.setPro(p);
     nvoReclamo.setRrec(ms);
     
@@ -180,59 +159,137 @@ public class reclamoController {
     return "sele2";
 
   }
-
-  
-
-  
+   //respuesta funcionalidad guardar, debe mantenerse
   @PostMapping("/selecResp2")  
-  public String selectRespuesta2(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo){
-    System.out.println("QUe sucede, control");
+  public String guardarReclamos(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo){
+    System.out.println("reclamo pk: "+nvoReclamo.getRrec().getNumero_Reclamo() );
+    System.out.println("reclamo pk: "+nvoReclamo.getRrec().getCodigo_Interno_Reclamo() );
+    if(nvoReclamo.getRrec().getCodigo_Interno_Reclamo()==null){
+      System.out.println("Recepcion selecResp2, formulario de ingreso, control");
+      System.out.println("CLiente");
 
-    System.out.println("Seleccion y entrego nombre:" + nvoReclamo.getCli().getNombreCliente() + " y id: " + nvoReclamo.getCli().getIdCliente());
+      System.out.println("Seleccion y entrego id: " + nvoReclamo.getRrec().getClienteIdCliente());
+      System.out.println("Fruta y entrego id: " + nvoReclamo.getRrec().getTipo_Fruta_Id_Tipo_Fruta());
+      System.out.println("marca y entrego id: " + nvoReclamo.getRrec().getMarca_Id_Marca());
+      System.out.println("Producto y entrego id: " + nvoReclamo.getRrec().getTipo_Producto_Id_Producto());
+      System.out.println("estado  y entrego id: " + nvoReclamo.getRrec().getEstado_Id_estado());
+      RS.guardaReclamo(nvoReclamo.getRrec());
+    }  else{
+      System.out.println("Esto deberia ser ya no cumple: " +nvoReclamo.getRrec().getDetalle_Reclamo());
+      RS.update(nvoReclamo.getRrec());
 
-
-    
-   
-    return "redirect:/selec";
-
-  }
-
-
-}
-/*
-    @PostMapping("/guardaReclamo")
-    @ResponseBody
-    public String guardaReclamo(@RequestBody reclamo R){
-      Assert.notNull(R, "The entry cannot be null");
-      System.out.println("codigo interno:" + R.getCodigo_Interno_Reclamo());
-        System.out.println("Detalle:" + R.getDetalle_Reclamo());
-        System.out.println("codigo interno:" + R.getFecha_Recepcion_Reclamo());        
-      RS.guardaReclamo(R);
-      return "crear_reclamos";
+      
     }
+    return "redirect:/selec2";
+  
+  }
+  //buscar reclamo
+  @GetMapping("/buscarReclamosConParametros")
+  public String buscarConPramaetros(Model model){
+    System.out.println("Entro en la pre-busqueda con parametros");
+      
+    reclamoEnti nvoReclamo= new reclamoEnti();
+   
+    List<cliente> clientes=CS.listaAllClientes();
+    model.addAttribute("clientes", clientes);
+    
+    List<estado> estados=ES.listaAllEstados();
+    model.addAttribute("estados", estados);
 
-Codigo_Interno_Reclamo":2000,
-    "Detalle_Reclamo":"yt1",
-    "Fecha_Recepcion_Reclamo":"2019-12-12 00:00:00.0",
-    "Temporada_Recepcion_Reclamo_1":2000,
-    "Temporada_Recepcion_Reclamo_2":2000,
-   "Fecha_Respuesta_Reclamo":"2019-12-12 00:00:00.0",
-    "Temporada_Proceso_Reclamo_1":2000,
-    "Temporada_Proceso_Reclamo_2":2000,
-   "Estado_Id_estado":2,
-    "Investigacion_Id_Investigacion":0,
-    "Tipo_Producto_Id_Producto":1,
-    "Marca_Id_Marca":1,
-    "Tipo_Fruta_Id_Tipo_Fruta":1,
-    "ClienteIdCliente":4,
-    "Sub_Tipo_CR_Id_Sub_Tipo_CR":1
+    List<marca> marcas=MS.listaAllMarca();
+    model.addAttribute("marcas", marcas);
 
-    @PostMapping("/guardaReclamo")
-    public String guardaReclamo(@RequestBody reclamo R){
-      Assert.notNull(R, "The entry cannot be null");
-      System.out.println("codigo interno:" + R.getCodigo_Interno_Reclamo());
-        System.out.println("Detalle:" + R.getDetalle_Reclamo());
-        System.out.println("codigo interno:" + R.getFecha_Recepcion_Reclamo());        
-      RS.guardaReclamo(R);
-      return "crear_reclamos";
-    }*/
+    List<producto> productos=PS.listaAllProductos();
+    model.addAttribute("productos", productos);
+
+    List<reclamo> reclamos=RS.listAllReclamos();
+    model.addAttribute("reclamos", reclamos);
+
+    List<tipo_fruta> tipo_frutas=FS.listaAllFrutas();
+    model.addAttribute("tipo_frutas", tipo_frutas);
+    
+    estado s=new estado();
+    marca m=new marca();
+    producto p= new producto();
+    reclamo ms= new reclamo();
+    tipo_fruta f=new tipo_fruta();
+    nvoReclamo.setEst(s);
+    nvoReclamo.setFru(f);
+    nvoReclamo.setMar(m); 
+    nvoReclamo.setPro(p);
+    nvoReclamo.setRrec(ms);
+    
+    
+    model.addAttribute("nvoReclamo", nvoReclamo);
+    System.out.println("Saliendo de la pre-busqueda con parametros");
+    return "buscarReclamosP";
+  }
+    //respuesta de buscar reclamo
+  @PostMapping("/rbp")
+  @DateTimeFormat(pattern = "yyyy/MM/dd")
+  public String respuestaBConPramaetros(@ModelAttribute("reclamoEnti") reclamoEnti nvoReclamo, Model model){
+    System.out.println("Entro en la busqueda con parametros");
+     
+
+
+    ///debe hacer lo sigueiente:
+    //buscar con x parametros,  que deben estar en reclamoenti.reclamo y pasarselo a una funcion.
+    System.out.println("Ingresaste temporada reclamo:" +nvoReclamo.getRrec().getTemporada_Recepcion_Reclamo_1() + "?");
+    System.out.println("Ingresaste cliente:" +nvoReclamo.getRrec().getClienteIdCliente() + "?");
+    
+    System.out.println("Ingresaste fecha:" +nvoReclamo.getRrec().getFecha_Recepcion_Reclamo() + "?");
+    reclamo consulta=nvoReclamo.getRrec();
+    
+    
+    System.out.println("Se realiza la consulta en la BD: ");
+    List<reclamo> busca= RS.buscaConP(consulta);
+
+    //luego gardarla en el model  
+    long cantidad=RS.cantidadR();
+    long tamaño=busca.size();
+    System.out.println("Total colsuta:" + cantidad);
+    System.out.println("Total registros en BD:" + tamaño);
+    if(busca.size()==cantidad || tamaño==0){
+      return "busquedaSinResultado";
+    }
+    List<reclamoEnti> busquedaMultiReclamo= RS.modelToEntity(busca);
+    //luego gardarla en el model  
+    model.addAttribute("busquedaMultiReclamo", busquedaMultiReclamo);
+    // luego pasarla a una vista
+
+    // debe ser listarrodo? el hace deploy de datos en vista... talvez habra que hacer una vista custom
+    System.out.println("Sale, ahy extio?");
+    System.out.println("Sale arreglo tamaño: "+ busquedaMultiReclamo.size());
+    System.out.println("Ingresaste:" +nvoReclamo.getRrec().getTemporada_Recepcion_Reclamo_1() + "?");
+    System.out.println("Ingresaste cliente:" +nvoReclamo.getRrec().getClienteIdCliente() + "?");
+    
+    System.out.println("Ingresaste fecha:" +nvoReclamo.getRrec().getFecha_Recepcion_Reclamo() + "?");
+    return "customRespuesta";
+  }
+  //editar, funcionando
+  @GetMapping("/edit/{Numero_Reclamo}")
+  public String edit(@PathVariable("Numero_Reclamo") Integer Numero_Reclamo, Model model){
+    reclamoEnti nvoReclamo=RS.formar(Numero_Reclamo);
+    model.addAttribute("nvoReclamo",nvoReclamo);
+    
+    List<cliente> clientes=CS.listaAllClientes();
+    model.addAttribute("clientes", clientes);
+    
+    List<estado> estados=ES.listaAllEstados();
+    model.addAttribute("estados", estados);
+
+    List<marca> marcas=MS.listaAllMarca();
+    model.addAttribute("marcas", marcas);
+
+    List<producto> productos=PS.listaAllProductos();
+    model.addAttribute("productos", productos);
+
+    List<reclamo> reclamos=RS.listAllReclamos();
+    model.addAttribute("reclamos", reclamos);
+
+    List<tipo_fruta> tipo_frutas=FS.listaAllFrutas();
+    model.addAttribute("tipo_frutas", tipo_frutas);
+    return "sele2";
+  }
+  
+}

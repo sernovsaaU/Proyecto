@@ -1,0 +1,18 @@
+            Integer buscaConEsteId=lista.getTipo_Fruta_Id_Tipo_Fruta();
+            tipo_fruta f=FS.buscarNombreConId(buscaConEsteId);
+            
+            buscaConEsteId=lista.getClienteIdCliente();
+            cliente c=CS.buscarNombreConId(buscaConEsteId);
+            //System.out.println("Cliente obetenido: " + c.getNombreCliente());
+
+            buscaConEsteId=lista.getEstado_Id_estado();
+            estado e=ES.buscarNombreConId(buscaConEsteId);
+            //System.out.println("Estado obetenida"+ e.getEstado());
+
+            buscaConEsteId=lista.getTipo_Producto_Id_Producto();
+            producto p=PS.buscarNombreConId(buscaConEsteId);
+            //System.out.println("Producto obetenida"+ e.getEstado());
+
+            buscaConEsteId=lista.getMarca_Id_Marca();
+            marca m=MS.buscarNombreConId(buscaConEsteId);
+            //System.out.println("Marca obetenida"+ e.getEstado());

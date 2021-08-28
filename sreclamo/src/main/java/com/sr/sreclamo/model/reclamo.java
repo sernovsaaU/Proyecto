@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
+@DynamicUpdate(true)
 @Table(name="Reclamo")
 public class reclamo {
     /*Numero_Reclamo` INT NOT NULL AUTO_INCREMENT,
